@@ -7,4 +7,8 @@
         {{ form|crispy }}
         <button type="submit" class="btn btn-success">Crear cuenta</button>
     </form>
+
+    <p>
+        Ya tienes una cuenta? <a href="{% url 'acceder' %}">Acceder</a>
+    </p>
 {% endblock content %}

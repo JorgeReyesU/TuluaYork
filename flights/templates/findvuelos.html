@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block content %}
+<h1>Vuelos, {{ciudad1.nombre}} - {{ciudad2.nombre}}</h1>
+{% block extra_css %}
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css' rel='stylesheet' />
+{% endblock extra_css %}
+{% block extrajs %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js'></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      displayEventTime: false,
+      initialDate: '2020-04-01',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,listYear'
+      },
+      events: {
+        url: 'ics/feed.ics',
+        format: 'ics',
+        failure: function() {
+          document.getElementById('script-warning').style.display = 'block';
+        }
+      },
+      loading: function(bool) {
+        document.getElementById('loading').style.display = bool ? 'block' : 'none';
+      }
+    });
+    calendar.render();
+  });
+</script>
+{% endblock extrajs %}
+{% endblock content %}
