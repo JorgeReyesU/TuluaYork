@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block content %}
+
+
+<h1>{{titulo}}</h1>
+<hr>
+	<div class="card card-body">
+		<a class="btn btn-primary" href="{% url 'create_vuelo' %}">Crear vuelo</a>
+			<table class="table table-sm">
+				<tr>
+					<th>Vuelo</th>
+					<th>Origen</th>
+                    <th>Fecha de salida</th>
+                    <th>Destino</th>
+                    <th>Fecha de llegada</th>
+					<th>Estado</th>
+					<th>Actualizar</th>
+					<th></th>
+				</tr>
+
+				{% for vuelo in vuelos %}
+					<tr>
+						<td>{{vuelo.nombre}}</td>
+                        <td>{{vuelo.origen.nombre}}</td>
+						<td>{{vuelo.hora_salida}} {{vuelo.fecha_salida}} </td>
+                        <td>{{vuelo.destino.nombre}}</td>
+                        <td>{{vuelo.hora_llegada}} {{vuelo.fecha_llegada}}</td>
+						<td>{{vuelo.estado}}</td>
+						<td><a class="btn btn-sm btn-info" href="/flights/updateflight/{{ vuelo.id }}">Actualizar</a></td>
+						<td><a class="btn btn-sm btn-danger" href="/flights/cancelflight/{{ vuelo.id }}">Cancelar</a></td>
+
+					</tr>
+				{% endfor %}
+
+
+			</table>
+	</div>
+{% endblock content %}

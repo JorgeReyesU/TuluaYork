@@ -1,4 +1,4 @@
 from django.contrib import admin
-from authentication.models import usuario
+from authentication.models import max_reservas
 
-admin.site.register(usuario)
+admin.site.register(max_reservas)

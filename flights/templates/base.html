@@ -31,9 +31,14 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fab fa-cloudflare"></i> Mis vuelos</a>
+                    <a class="nav-link" href="/flights/greservas/{{ user.id }}"><i class="fab fa-cloudflare"></i> Mis reservas</a>
                 </li>
-                {% endif %}            
+                    {% if user.is_superuser %}
+                       <li class="nav-item">
+                            <a class="nav-link" href="{% url 'gvuelos' %}"><i class="fas fa-binoculars"></i> Gestionar vuelos</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
             </ul>
 
             {% if user.is_authenticated %}

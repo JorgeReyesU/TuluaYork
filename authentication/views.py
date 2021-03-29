@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
-from .models import usuario
+from .models import max_reservas
 from .forms import CreateUserForm
 
 
@@ -42,8 +42,8 @@ class ViewRegister(View):
             name_user = form.cleaned_data.get("username")
             messages.success(request, F"Bienvenid@ a TuluaYork Airlines {name_user}")
             login(request, user)
-            Usuario = usuario(max_vuelos=2, user=user)
-            Usuario.save()
+            max = max_reservas(cantidad=2, user=user)
+            max.save()
             return redirect("flights")
         else: 
             for msg in form.error_messages:

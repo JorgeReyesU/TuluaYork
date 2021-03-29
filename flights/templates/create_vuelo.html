@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form action="" method="POST" class="mt-2">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input name="Crear" type="submit" class="btn btn-success" value="Crear vuelo">
+</form>
+{% endblock content %}

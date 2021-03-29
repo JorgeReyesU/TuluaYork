@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block content %}
+
+
+<h1>{{titulo}}</h1>
+<p>Recuerda que solo puedes reservar {{max.cantidad}} vuelos.</p>
+<hr>
+<div class="card card-body">
+    <table class="table table-sm">
+				<tr>
+                    <th>Reserva</th>
+                    <th>A nombre de</th>
+					<th>Documento</th>
+					<th>Vuelo</th>
+					<th>Origen</th>
+                    <th>Fecha de salida</th>
+                    <th>Destino</th>
+                    <th>Fecha de llegada</th>
+					<th></th>
+				</tr>
+
+				{% for reserva in reservas %}
+					<tr>
+                        <td>{{reserva.id}}</td>
+                        <td>{{reserva.nombre}}</td>
+						<td>{{reserva.cc}}</td>
+						<td>{{reserva.vuelo.nombre}}</td>
+                        <td>{{reserva.vuelo.origen.nombre}}</td>
+						<td>{{reserva.vuelo.hora_salida}} {{reserva.vuelo.fecha_salida}} </td>
+                        <td>{{reserva.vuelo.destino.nombre}}</td>
+                        <td>{{reserva.vuelo.hora_llegada}} {{reserva.vuelo.fecha_llegada}}</td>
+						<td><a class="btn btn-sm btn-danger" href="/flights/cancelreserve/{{ reserva.id }}">Cancelar</a></td>
+
+					</tr>
+				{% endfor %}
+
+
+			</table>
+	</div>
+{% endblock content %}

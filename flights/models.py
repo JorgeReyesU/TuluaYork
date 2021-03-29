@@ -35,21 +35,33 @@ class interface_impuesto(models.Model):
     destino = models.ForeignKey(ciudad, on_delete=models.CASCADE)
 
 class vuelo(models.Model):
+    nombre = models.CharField(max_length=20)
     origen = models.ForeignKey(ciudad, related_name='origen', on_delete=models.CASCADE)
     destino = models.ForeignKey(ciudad, related_name='destino', on_delete=models.CASCADE)
-    fecha_salida = models.DateTimeField()
-    fecha_llegada = models.DateTimeField()
+    fecha_salida = models.DateField()
+    hora_salida = models.TimeField()
+    fecha_llegada = models.DateField()
+    hora_llegada = models.TimeField()
     costo = models.IntegerField()
-    estado = models.BooleanField()
+    estado = models.BooleanField(default=True)
     capacidad = models.IntegerField()
+
+    def __str__(self):
+        return self.nombre
 
 class escala(models.Model):
     vuelo = models.ForeignKey(vuelo, on_delete=models.CASCADE)
     destino = models.ForeignKey(ciudad, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.destino.nombre
+
 class reserva(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     vuelo = models.ForeignKey(vuelo, on_delete=models.CASCADE)
-    estado = models.BooleanField()
+    estado = models.BooleanField(default=True)
     nombre = models.CharField(max_length=20)
     cc = models.CharField(max_length=12)
+
+    def __str__(self):
+        return self.vuelo.nombre

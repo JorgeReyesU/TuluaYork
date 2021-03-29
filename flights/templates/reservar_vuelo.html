@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="row">
+    <div class="col-6 bg-light offset-3 text-center">
+        <h1 class="text-primary">{{titulo}}</h1>
+        <p>Recuerda que puedes reservar maximo {{max.cantidad}} vuelos</p>
+        <h2>{{vuelo.nombre}}</h2>
+        <h3>{{vuelo.origen.nombre}} - {{vuelo.destino.nombre}}</h3>
+        <h3>{{vuelo.hora_salida}} {{vuelo.fecha_salida}} - {{vuelo.hora_llegada}} {{vuelo.fecha_llegada}}</h3>
+        <p>Quedan {{vuelo.capacidad}} asientos disponibles, date prisa!</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6 bg-light offset-3 text-center">
+        <form action="" method="POST" class="mt-2">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input name="Crear" type="submit" class="btn btn-success" value="Reservar">
+        </form>
+    </div>
+</div>
+{% endblock content %}

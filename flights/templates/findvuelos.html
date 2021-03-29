@@ -5,31 +5,45 @@
 {% block extra_css %}
 <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css' rel='stylesheet' />
 {% endblock extra_css %}
+<div class="card mt-5" style="padding: 20px;" id="calendar"></div>
 {% block extrajs %}
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js'></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    var calendarUI = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarUI, {
+
       displayEventTime: false,
-      initialDate: '2020-04-01',
+      initialDate: '2021-04-01',
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
         right: 'dayGridMonth,listYear'
       },
-      events: {
-        url: 'ics/feed.ics',
-        format: 'ics',
-        failure: function() {
-          document.getElementById('script-warning').style.display = 'block';
+      events: [
+        {% for vuelo in vuelos %}
+            {
+                title: "{{vuelo.nombre}} - {{vuelo.hora_salida}} - {{vuelo.hora_llegada}}",
+                start: '{{vuelo.fecha_salida|date:"Y-m-d"}}',
+                end: '{{vuelo.fecha_llegada|date:"Y-m-d"}}',
+                {% if user.is_authenticated %}
+                    url: '/flights/reserveflight/{{user.id}}/{{vuelo.id}}',
+                {% else %}
+                    url: '/accounts/acceder',
+                {% endif %}
+            },
+        {% endfor %}
+      ],
+      eventClick: function(info) {
+        info.jsEvent.preventDefault();
+
+        if(info.event.url){
+            window.open(info.events.url);
         }
-      },
-      loading: function(bool) {
-        document.getElementById('loading').style.display = bool ? 'block' : 'none';
       }
     });
     calendar.render();
+    calendar.setOption('locale', 'es');
   });
 </script>
 {% endblock extrajs %}
