@@ -31,11 +31,20 @@
                         <td>{{reserva.vuelo.destino.nombre}}</td>
                         <td>{{reserva.vuelo.hora_llegada}} {{reserva.vuelo.fecha_llegada}}</td>
 						<td><a class="btn btn-sm btn-danger" href="/flights/cancelreserve/{{ reserva.id }}">Cancelar</a></td>
-
 					</tr>
 				{% endfor %}
+	</table>
+</div>
 
-
-			</table>
+{% if n >= 1 %}
+{% for clima in climas %}
+	<div class="row mt-3">
+		<div class="col-6 bg-light offset-3 text-center">
+			<h2 class="text-info">Clima en {{clima.0}}</h2>
+			<h3>{{clima.1}} &deg Centigrados</h3>
+			<h3>{{clima.2}}</h3>
+		</div>
 	</div>
+{% endfor %}
+{% endif %}
 {% endblock content %}

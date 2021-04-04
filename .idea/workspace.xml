@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecf94682-b509-4c61-9053-84629f8b7b73" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/TuluaYork.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TuluaYork.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/flights/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/flights/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights/templates/findvuelos.html" beforeDir="false" afterPath="$PROJECT_DIR$/flights/templates/findvuelos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights/templates/vuelos.html" beforeDir="false" afterPath="$PROJECT_DIR$/flights/templates/vuelos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/flights/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flights/templates/mis_vuelos.html" beforeDir="false" afterPath="$PROJECT_DIR$/flights/templates/mis_vuelos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flights/templates/reservar_vuelo.html" beforeDir="false" afterPath="$PROJECT_DIR$/flights/templates/reservar_vuelo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flights/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/flights/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +37,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from flights.models import vuelo, ciudad, reserva
+from flights.models import vuelo, ciudad, reserva, interface_vacuna, interface_impuesto
 from django.contrib.auth.models import User
 from authentication.models import max_reservas
 from .forms import vueloForm, reservaForm
 from django.contrib import messages
+import requests as rq
+import numpy as np
 
 from datetime import date
 from datetime import datetime
@@ -42,9 +44,8 @@ def gvuelos(request):
     titulo = "Gestionar vuelos"
     mensaje = ""
 
-    vuelos = vuelo.objects.filter(fecha_salida__gte=today) # lt, gt, lte, gte
+    vuelos = vuelo.objects.filter(fecha_salida__gte=today, estado=True) # lt, gt, lte, gte
 
-    print(vuelos)
     context = {"titulo": titulo, "mensaje": mensaje, "vuelos": vuelos}
     return render(request, "Gvuelos.html", context)
 
@@ -87,12 +88,16 @@ def cancelflight(request, vuelo_id):
     Vuelo = vuelo.objects.get(id=vuelo_id)
 
     if request.method == 'POST':
-        if vuelo.estado == True:
+        if Vuelo.estado == True:
             Vuelo.estado = False
             Vuelo.save()
-            reservas = reserva.objects.filter(vuelo=Vuelo).distinct('usuario')
-            for Reserva in reservas:
-                Reserva.usuario.max_vuelos += 1
+            #Reservas = reserva.objects.filter(vuelo=Vuelo).values_list('usuario_id', flat=True).distinct()
+            Reservas = reserva.objects.filter(vuelo=Vuelo, estado=True)
+            for Reserva in Reservas:
+                Max_reserva = max_reservas.objects.get(user_id=Reserva.usuario.id)
+                Max_reserva.cantidad += 1
+                Max_reserva.save()
+                Reserva.estado = False
                 Reserva.save()
             return redirect('/flights/gvuelos')
 
@@ -106,7 +111,23 @@ def greservas(request, user_id):
     reservas = reserva.objects.filter(usuario=user_id, estado=True, vuelo__fecha_salida__gte=today) # lt, gt, lte, gte
     max = max_reservas.objects.get(user=user_id)
 
-    context = {"titulo": titulo, "mensaje": mensaje, "reservas": reservas, 'max': max}
+    reservasW = reserva.objects.filter(usuario=user_id, estado=True, vuelo__fecha_salida=today)
+
+    climas = [None] * len(reservasW)
+    for i in range(len(reservasW)):
+        climas[i] = [None] * 3
+
+    for i in range(len(reservasW)):
+        city = reservasW[i].vuelo.destino.nombre
+        url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid=28db4062029546869583fb2f6642acb5&units=metric'.format(
+            city)
+        res = rq.get(url)
+        data = res.json()
+        climas[i][0] = city
+        climas[i][1] = data['main']['temp']
+        climas[i][2] = data['weather'][0]['description']
+
+    context = {"titulo": titulo, "mensaje": mensaje, "reservas": reservas, 'max': max, 'climas': climas, 'n': len(climas)}
     return render(request, "mis_vuelos.html", context)
 
 def cancelreserve(request, reserva_id):
@@ -138,6 +159,11 @@ def reserveflight(request, user_id, vuelo_id):
     max = max_reservas.objects.get(user=user_id)
     reservas = reserva.objects.filter(usuario=user_id, vuelo__fecha_salida__gte=today)
 
+    Destino = ciudad.objects.get(id=Vuelo.destino.id)
+    inVacs = interface_vacuna.objects.filter(destino=Destino.id)
+    inImps = interface_impuesto.objects.filter(destino=Destino.id)
+
+
     form = reservaForm()
 
     if  request.method == 'POST':
@@ -145,11 +171,13 @@ def reserveflight(request, user_id, vuelo_id):
             form = reservaForm(request.POST, instance=reserva(vuelo=Vuelo, usuario=user))
             if form.is_valid():
                 form.save()
+                Vuelo.capacidad -= 1
+                Vuelo.save()
                 return redirect('/flights/greservas/'+ str(user_id))
         else:
             messages.error(request, F"Ya reservaste tu maximo")
 
-    context = {"titulo": titulo, "mensaje": mensaje,"form": form, "vuelo": Vuelo, "Vuelos": Vuelos, "max": max}
+    context = {"titulo": titulo, "mensaje": mensaje,"form": form, "vuelo": Vuelo, "Vuelos": Vuelos, "max": max, "inVacs": inVacs, "inImps": inImps}
 
     return render(request, "reservar_vuelo.html", context)
 

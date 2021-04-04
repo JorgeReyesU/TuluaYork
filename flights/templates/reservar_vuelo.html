@@ -15,6 +15,23 @@
 </div>
 
 <div class="row">
+<div class="col-6 bg-light offset-3 text-center">
+    <h2 class="text-warning">Impuestos en {{vuelo.destino.nombre}}</h2>
+    {% for inImp in inImps %}
+        <h3>{{inImp.impuesto.nombre}} - {{inImp.impuesto.cantidad}} $ COP</h3>
+    {% endfor %}
+</div>
+</div>
+<div class="row">
+<div class="col-6 bg-light offset-3 text-center">
+    <h2 class="text-warning">Vacunas necesarias en {{vuelo.destino.nombre}}</h2>
+    {% for inVac in inVacs %}
+        <h3>{{inVac.vacuna.nombre}}, te la debes aplicar cada {{inVac.vacuna.periodicidad}} años</h3>
+    {% endfor %}
+</div>
+</div>
+
+<div class="row">
     <div class="col-6 bg-light offset-3 text-center">
         <form action="" method="POST" class="mt-2">
             {% csrf_token %}
