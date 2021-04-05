@@ -5,12 +5,13 @@ from authentication.models import max_reservas
 from .forms import vueloForm, reservaForm
 from django.contrib import messages
 import requests as rq
+import yagmail
 import numpy as np
 
-from datetime import date
-from datetime import datetime
+from datetime import date, datetime, timedelta
 #Día actual
 today = date.today()
+tomorrow = today + timedelta(days=1)
 #Fecha actual
 now = datetime.now()
 
@@ -19,11 +20,19 @@ def flights(request):
     titulo = "Inicio"
     mensaje = ""
     ciudades = ciudad.objects.all()
-    context = {"titulo": titulo, "mensaje": mensaje, "ciudades": ciudades}
+    
+    if True == False:
+        reservas = reserva.objects.filter(estado=True, vuelo__fecha_salida=tomorrow)
+        email = yagmail.SMTP('tuluayork.info.vuelo@gmail.com', "R3d3s2021")
+        for Reserva in reservas:
+            contenido = "El vuelo " + Reserva.vuelo.nombre + " con destino a la ciudad de " + Reserva.vuelo.destino.nombre + " para el dia de mañana " + tomorrow.strftime("%m/%d/%Y") + " con hora " + Reserva.vuelo.hora_salida.strftime("%H:%M %p") + " te esta esperando, esperamos tengas un buen viaje."
+            email.send(to=Reserva.usuario.email, subject="Recordatorio de vuelo - TuluaYork Airlines", contents=[contenido])
 
     if request.method == 'POST':
         print(request.POST)
         return redirect(findflights, ciudad1_name=request.POST.get('input1'), ciudad2_name=request.POST.get('input2'))
+
+    context = {"titulo": titulo, "mensaje": mensaje, "ciudades": ciudades}
     return render(request, "vuelos.html", context)
 
 def findflights(request, ciudad1_name, ciudad2_name):

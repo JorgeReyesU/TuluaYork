@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecf94682-b509-4c61-9053-84629f8b7b73" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/TuluaYork.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TuluaYork.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights/templates/mis_vuelos.html" beforeDir="false" afterPath="$PROJECT_DIR$/flights/templates/mis_vuelos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights/templates/reservar_vuelo.html" beforeDir="false" afterPath="$PROJECT_DIR$/flights/templates/reservar_vuelo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flights/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/flights/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
